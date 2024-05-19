@@ -7,8 +7,8 @@ from preporcess import prepare
 from utilities import train
 
 
-data_dir = 'D:/Youtube/Organ and Tumor Segmentation/datasets/Task03_Liver/Data_Train_Test'
-model_dir = 'D:/Youtube/Organ and Tumor Segmentation/results/results' 
+data_dir = 'C:\Users\lison\OneDrive\Bureau\ML-Project\dicom_file\Train'
+model_dir = 'C:\Users\lison\OneDrive\Bureau\ML-Project/results/results_01' 
 data_in = prepare(data_dir, cache=True)
 
 device = torch.device("cuda:0")
@@ -16,7 +16,7 @@ model = UNet(
     dimensions=3,
     in_channels=1,
     out_channels=2,
-    channels=(16, 32, 64, 128, 256), 
+    channels=(16, 32, 64, 129, 256), 
     strides=(2, 2, 2, 2),
     num_res_units=2,
     norm=Norm.BATCH,
