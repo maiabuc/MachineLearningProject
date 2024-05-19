@@ -6,6 +6,8 @@ import numpy as np
 from monai.losses import DiceLoss
 from tqdm import tqdm
 
+import os #added from original code 
+
 def dice_metric(predicted, target):
     '''
     In this function we take `predicted` and `target` (label) to calculate the dice coeficient then we use it 
@@ -42,7 +44,7 @@ def train(model, data_in, loss, optim, max_epochs, model_dir, test_interval=1 , 
         print(f"epoch {epoch + 1}/{max_epochs}")
         model.train()
         train_epoch_loss = 0
-        train_step = 0
+        train_step = 1 #value changed from 0 to 1 from original code 
         epoch_metric_train = 0
         for batch_data in train_loader:
             
@@ -71,9 +73,17 @@ def train(model, data_in, loss, optim, max_epochs, model_dir, test_interval=1 , 
             print(f'Train_dice: {train_metric:.4f}')
 
         print('-'*20)
-        
+
+        print( ' train step', train_step)
+        print("Length of train_loader:", len(train_loader))
+        print("Length of test_loader:", len(test_loader))
+
         train_epoch_loss /= train_step
         print(f'Epoch_loss: {train_epoch_loss:.4f}')
+
+        if not os.path.exists(model_dir):
+            os.makedirs(model_dir)
+
         save_loss_train.append(train_epoch_loss)
         np.save(os.path.join(model_dir, 'loss_train.npy'), save_loss_train)
         
@@ -90,8 +100,7 @@ def train(model, data_in, loss, optim, max_epochs, model_dir, test_interval=1 , 
                 test_epoch_loss = 0
                 test_metric = 0
                 epoch_metric_test = 0
-                test_step = 0
-
+                test_step = 1 #modified from original code 0->1
                 for test_data in test_loader:
 
                     test_step += 1

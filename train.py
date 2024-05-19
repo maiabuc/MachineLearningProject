@@ -7,8 +7,8 @@ from preporcess import prepare
 from utilities import train
 
 
-data_dir = 'C:\Users\lison\OneDrive\Bureau\ML-Project\dicom_file\Train'
-model_dir = 'C:\Users\lison\OneDrive\Bureau\ML-Project/results/results_01' 
+data_dir = ".\dicom_file\TrainImages"
+model_dir = ".\dicom_file\TrainLabels" 
 data_in = prepare(data_dir, cache=True)
 
 device = torch.device("cuda:0")
@@ -28,4 +28,4 @@ loss_function = DiceLoss(to_onehot_y=True, sigmoid=True, squared_pred=True)
 optimizer = torch.optim.Adam(model.parameters(), 1e-5, weight_decay=1e-5, amsgrad=True)
 
 if __name__ == '__main__':
-    train(model, data_in, loss_function, optimizer, 600, model_dir)
+    train(model, data_in, loss_function, optimizer, 100, model_dir)
